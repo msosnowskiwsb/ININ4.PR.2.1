@@ -13,11 +13,9 @@ public class EmployeeDemo {
     static String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
 
     public static void main(String args[]) {
-        int employeesCounter = 14;
         String operatorName = "Mateusz";
         ArrayList<String> loggedEmployees = new ArrayList<>();
         ArrayList<String> employees = new ArrayList<>();
-
 
         File file = new File(fileName);
         Scanner fileScanner = null;
@@ -40,14 +38,13 @@ public class EmployeeDemo {
             }
         }
 
-
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append("Hello ").append(args[1]).append("!")
                 .append("\nAktualna data: ").append(new Date())
                 .append("\nFirma: ").append(companyName)
                 .append("\nOperator ").append(operatorName)
-                .append("\nLiczba pracowników: ").append(employeesCounter);
+                .append("\nLiczba pracowników: ").append(employees.size());
         System.out.println(stringBuilder);
 
         if (employees == null) {
@@ -55,6 +52,7 @@ public class EmployeeDemo {
         } else if (employees.size() == 0) {
             System.out.println("Brak pracowników");
         } else if (employees.size() > 0) {
+            System.out.println("\nLista pracowników (" + employees.size() + "):");
             int i = 0;
             for (String loggedEmployee : loggedEmployees) {
                 System.out.println(loggedEmployee);
@@ -65,10 +63,10 @@ public class EmployeeDemo {
             }
         }
 
-
         if (loggedEmployees.size() == 0) {
             System.out.println("Brak zalogowanych pracowników");
         } else if (loggedEmployees.size() > 0) {
+            System.out.println("\nZalogowani użytkownicy (" + loggedEmployees.size() + "):");
             int i = 0;
             for (String loggedEmployee : loggedEmployees) {
                 System.out.println(loggedEmployee);
