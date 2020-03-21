@@ -15,10 +15,11 @@ public class EmployeeDemo {
     static String companyName = "WSB Gdańsk";
     static String fileName = System.getProperty("user.dir") + "\\utils\\db.txt";
 
+    static ArrayList<String> employees = new ArrayList<>();
+    static ArrayList<String> loggedEmployees = new ArrayList<>();
+
     public static void main(String args[]) {
         String operatorName = "Mateusz";
-        ArrayList<String> loggedEmployees = new ArrayList<>();
-        ArrayList<String> employees = new ArrayList<>();
 
         Scanner fileScanner = getFileScanner();
         if (fileScanner == null) return;
@@ -28,9 +29,9 @@ public class EmployeeDemo {
             String employee = fileScanner.nextLine();
             Matcher matcher = pattern.matcher(employee);
             if (matcher.matches()) {
-                employees.add(employee);
+                getEmployees().add(employee);
                 if (Boolean.parseBoolean(matcher.group(1))) {
-                    loggedEmployees.add(matcher.group(2));
+                    getEmployees(true).add(matcher.group(2));
                 }
             }
         }
@@ -41,18 +42,18 @@ public class EmployeeDemo {
                 .append("\nAktualna data: ").append(new Date())
                 .append("\nFirma: ").append(companyName)
                 .append("\nOperator ").append(operatorName)
-                .append("\nLiczba pracowników: ").append(employees.size());
+                .append("\nLiczba pracowników: ").append(getEmployees().size());
         System.out.println(stringBuilder);
 
-        if (employees == null) {
+        if (getEmployees() == null) {
             System.out.println("Błąd pobierania pracowników");
-        } else if (employees.size() == 0) {
+        } else if (getEmployees().size() == 0) {
             System.out.println("Brak pracowników");
-        } else if (employees.size() > 0) {
-            System.out.println("\nLista pracowników (" + employees.size() + "):");
+        } else if (getEmployees().size() > 0) {
+            System.out.println("\nLista pracowników (" + getEmployees().size() + "):");
             int i = 0;
-            for (String loggedEmployee : loggedEmployees) {
-                System.out.println(loggedEmployee);
+            for (String employee : getEmployees()) {
+                System.out.println(employee);
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -60,12 +61,12 @@ public class EmployeeDemo {
             }
         }
 
-        if (loggedEmployees.size() == 0) {
+        if (getEmployees(true).size() == 0) {
             System.out.println("Brak zalogowanych pracowników");
-        } else if (loggedEmployees.size() > 0) {
-            System.out.println("\nZalogowani użytkownicy (" + loggedEmployees.size() + "):");
+        } else if (getEmployees(true).size() > 0) {
+            System.out.println("\nZalogowani użytkownicy (" + getEmployees(true).size() + "):");
             int i = 0;
-            for (String loggedEmployee : loggedEmployees) {
+            for (String loggedEmployee : getEmployees(true)) {
                 System.out.println(loggedEmployee);
                 if (i++ == 5) {
                     System.out.println("...");
@@ -84,7 +85,7 @@ public class EmployeeDemo {
                 FileWriter fw = null;
                 try {
                     fw = new FileWriter(fileName,false);
-                    for (String employee : employees){
+                    for (String employee : getEmployees()){
                         fw.write(employee + "\n");
                     }
                     fw.close();
@@ -99,13 +100,13 @@ public class EmployeeDemo {
             boolean searched = false;
             Pattern patternSearch = Pattern.compile("^(true|false) - " + userName + " - (.+)$");
 
-            for (String employee : employees){
+            for (String employee : getEmployees()){
                 Matcher matcher = patternSearch.matcher(employee);
                 if (matcher.matches()){
                     searched = true;
                     boolean isLogged = Boolean.parseBoolean(matcher.group(1));
-                    employees.remove(i);
-                    employees.add(i,employee.replace(matcher.group(1), isLogged ? "false" : "true"));
+                    getEmployees().remove(i);
+                    getEmployees().add(i,employee.replace(matcher.group(1), isLogged ? "false" : "true"));
                     break;
                 }
                 i++;
@@ -132,5 +133,13 @@ public class EmployeeDemo {
             return null;
         }
         return fileScanner;
+    }
+
+    private static ArrayList<String> getEmployees(Boolean onlyLooged){
+        return onlyLooged ? loggedEmployees : employees;
+    }
+
+    private static ArrayList<String> getEmployees(){
+        return getEmployees(false);
     }
 }
