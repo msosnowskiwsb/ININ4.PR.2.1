@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -19,7 +20,6 @@ public class EmployeeDemo {
     static ArrayList<String> loggedEmployees = new ArrayList<>();
 
     public static void main(String args[]) {
-        String operatorName = "Mateusz";
 
         Scanner fileScanner = getFileScanner();
         if (fileScanner == null) return;
@@ -36,14 +36,7 @@ public class EmployeeDemo {
             }
         }
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder
-                .append("Hello ").append(args[1]).append("!")
-                .append("\nAktualna data: ").append(new Date())
-                .append("\nFirma: ").append(companyName)
-                .append("\nOperator ").append(operatorName)
-                .append("\nLiczba pracowników: ").append(getEmployees().size());
-        System.out.println(stringBuilder);
+        printWelcomeText();
 
         if (getEmployees() == null) {
             System.out.println("Błąd pobierania pracowników");
@@ -118,9 +111,20 @@ public class EmployeeDemo {
                 System.out.println("Błędnie podane imię i nazwisko!");
             }
 
-
         }
 
+    }
+
+    private static void printWelcomeText() {
+        SimpleDateFormat ft = new SimpleDateFormat("dd.MM.yy HH:mm");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder
+                .append("Hello ").append("!")
+                .append("\nAktualna data: ").append(ft.format(new Date()))
+                .append("\nFirma: ").append(companyName)
+                .append("\nOperator ").append(getOperatorName())
+                .append("\nLiczba pracowników: ").append(getEmployees().size());
+        System.out.println(stringBuilder);
     }
 
     private static Scanner getFileScanner() {
@@ -141,5 +145,9 @@ public class EmployeeDemo {
 
     private static ArrayList<String> getEmployees(){
         return getEmployees(false);
+    }
+
+    private static String getOperatorName(){
+        return "Mateusz";
     }
 }
