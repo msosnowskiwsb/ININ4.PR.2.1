@@ -20,14 +20,8 @@ public class EmployeeDemo {
         ArrayList<String> loggedEmployees = new ArrayList<>();
         ArrayList<String> employees = new ArrayList<>();
 
-        File file = new File(fileName);
-        Scanner fileScanner = null;
-        try {
-            fileScanner = new Scanner(file);
-        } catch (FileNotFoundException e) {
-            System.out.println("Błąd pobierania pliku!");
-            return;
-        }
+        Scanner fileScanner = getFileScanner();
+        if (fileScanner == null) return;
 
         Pattern pattern = Pattern.compile("^(true|false) - (.+)$");
         while (fileScanner.hasNextLine()) {
@@ -126,5 +120,17 @@ public class EmployeeDemo {
 
         }
 
+    }
+
+    private static Scanner getFileScanner() {
+        File file = new File(fileName);
+        Scanner fileScanner = null;
+        try {
+            fileScanner = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            System.out.println("Błąd pobierania pliku!");
+            return null;
+        }
+        return fileScanner;
     }
 }
