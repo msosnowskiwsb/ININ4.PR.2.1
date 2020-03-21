@@ -42,6 +42,11 @@ public class EmployeeDemo {
 
         printLoggedEmployees();
 
+        readEmployeeNameAndChangeStatus();
+
+    }
+
+    private static void readEmployeeNameAndChangeStatus() {
         System.out.println("\n Podaj imię i nazwisko (exit = koniec):");
         Scanner inScanner = new Scanner(System.in);
 
@@ -76,7 +81,6 @@ public class EmployeeDemo {
             }
 
         }
-
     }
 
     private static void saveToFile() {
