@@ -49,17 +49,7 @@ public class EmployeeDemo {
             String userName = inScanner.nextLine();
 
             if(userName.equals("exit")){
-                FileWriter fw = null;
-                try {
-                    fw = new FileWriter(fileName,false);
-                    for (String employee : getEmployees()){
-                        fw.write(employee + "\n");
-                    }
-                    fw.close();
-                }
-                catch (IOException e) {
-                    System.out.println("Błąd zapisu pliku");
-                }
+                saveToFile();
                 break;
             }
 
@@ -87,6 +77,20 @@ public class EmployeeDemo {
 
         }
 
+    }
+
+    private static void saveToFile() {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(fileName,false);
+            for (String employee : getEmployees()){
+                fw.write(employee + "\n");
+            }
+            fw.close();
+        }
+        catch (IOException e) {
+            System.out.println("Błąd zapisu pliku");
+        }
     }
 
     private static void printEmployees() {
