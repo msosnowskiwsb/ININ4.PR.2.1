@@ -38,21 +38,7 @@ public class EmployeeDemo {
 
         printWelcomeText();
 
-        if (getEmployees() == null) {
-            System.out.println("Błąd pobierania pracowników");
-        } else if (getEmployees().size() == 0) {
-            System.out.println("Brak pracowników");
-        } else if (getEmployees().size() > 0) {
-            System.out.println("\nLista pracowników (" + getEmployees().size() + "):");
-            int i = 0;
-            for (String employee : getEmployees()) {
-                System.out.println(employee);
-                if (i++ == 5) {
-                    System.out.println("...");
-                    break;
-                }
-            }
-        }
+        printEmployees();
 
         printLoggedEmployees();
 
@@ -101,6 +87,24 @@ public class EmployeeDemo {
 
         }
 
+    }
+
+    private static void printEmployees() {
+        if (getEmployees() == null) {
+            System.out.println("Błąd pobierania pracowników");
+        } else if (getEmployees().size() == 0) {
+            System.out.println("Brak pracowników");
+        } else if (getEmployees().size() > 0) {
+            System.out.println("\nLista pracowników (" + getEmployees().size() + "):");
+            int i = 0;
+            for (String employee : getEmployees()) {
+                System.out.println(employee);
+                if (i++ == 5) {
+                    System.out.println("...");
+                    break;
+                }
+            }
+        }
     }
 
     private static void printLoggedEmployees() {
