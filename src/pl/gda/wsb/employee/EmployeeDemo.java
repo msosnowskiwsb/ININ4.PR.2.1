@@ -1,7 +1,10 @@
 package pl.gda.wsb.employee;
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -75,6 +78,52 @@ public class EmployeeDemo {
                     break;
                 }
             }
+        }
+
+        System.out.println("\n Podaj imię i nazwisko (exit = koniec):");
+        Scanner inScanner = new Scanner(System.in);
+
+        while (inScanner.hasNextLine()){
+            String userName = inScanner.nextLine();
+
+            if(userName.equals("exit")){
+                FileWriter fw = null;
+                try {
+                    fw = new FileWriter(fileName,false);
+                    for (String employee : employees){
+                        fw.write(employee + "\n");
+                    }
+                    fw.close();
+                }
+                catch (IOException e) {
+                    System.out.println("Błąd zapisu pliku");
+                }
+                break;
+            }
+
+            int i = 0;
+            boolean searched = false;
+            Pattern patternSearch = Pattern.compile("^(true|false) - " + userName + " - (.+)$");
+
+            for (String employee : employees){
+                Matcher matcher = patternSearch.matcher(employee);
+                if (matcher.matches()){
+                    searched = true;
+                    boolean isLogged = Boolean.parseBoolean(matcher.group(1));
+                    employees.remove(i);
+                    employees.add(i,employee.replace(matcher.group(1), isLogged ? "false" : "true"));
+                    break;
+                }
+                i++;
+            }
+
+            if (searched){
+                System.out.println("Został zmieniony status dla pracownika: " + userName);
+            } else {
+                System.out.println("Błędnie podane imię i nazwisko!");
+            }
+
+
         }
 
     }
