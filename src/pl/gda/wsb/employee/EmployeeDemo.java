@@ -54,19 +54,7 @@ public class EmployeeDemo {
             }
         }
 
-        if (getEmployees(true).size() == 0) {
-            System.out.println("Brak zalogowanych pracowników");
-        } else if (getEmployees(true).size() > 0) {
-            System.out.println("\nZalogowani użytkownicy (" + getEmployees(true).size() + "):");
-            int i = 0;
-            for (String loggedEmployee : getEmployees(true)) {
-                System.out.println(loggedEmployee);
-                if (i++ == 5) {
-                    System.out.println("...");
-                    break;
-                }
-            }
-        }
+        printLoggedEmployees();
 
         System.out.println("\n Podaj imię i nazwisko (exit = koniec):");
         Scanner inScanner = new Scanner(System.in);
@@ -113,6 +101,22 @@ public class EmployeeDemo {
 
         }
 
+    }
+
+    private static void printLoggedEmployees() {
+        if (getEmployees(true).size() == 0) {
+            System.out.println("Brak zalogowanych pracowników");
+        } else if (getEmployees(true).size() > 0) {
+            System.out.println("\nZalogowani użytkownicy (" + getEmployees(true).size() + "):");
+            int i = 0;
+            for (String loggedEmployee : getEmployees(true)) {
+                System.out.println(loggedEmployee);
+                if (i++ == 5) {
+                    System.out.println("...");
+                    break;
+                }
+            }
+        }
     }
 
     private static void printWelcomeText() {
