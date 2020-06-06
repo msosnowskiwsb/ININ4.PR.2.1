@@ -32,12 +32,33 @@ public class EmployeeDemo {
                 String name = matcher.group(2);
                 String position = matcher.group(3);
 
-                Employee employee = new Employee(logged, name, position);
-
-                employeeRepository.getEmployees().add(employee);
-                if (Boolean.parseBoolean(matcher.group(1))) {
-                    employeeRepository.getEmployees(true).add(employee);
+                switch (position) {
+                    case "dyrektor":{
+                        Employee employee = new Director(logged,name);
+                        employeeRepository.getEmployees().add(employee);
+                        if (logged) {
+                            employeeRepository.getEmployees(true).add(employee);
+                        }
+                        break;
+                    }
+                    case "kierowca":{
+                        Employee employee = new Driver(logged,name);
+                        employeeRepository.getEmployees().add(employee);
+                        if (logged) {
+                            employeeRepository.getEmployees(true).add(employee);
+                        }
+                        break;
+                    }
+                    case "handlowiec":{
+                        Employee employee = new Seller(logged,name);
+                        employeeRepository.getEmployees().add(employee);
+                        if (logged) {
+                            employeeRepository.getEmployees(true).add(employee);
+                        }
+                        break;
+                    }
                 }
+
             }
         }
 
