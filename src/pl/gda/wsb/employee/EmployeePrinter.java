@@ -1,12 +1,13 @@
 package pl.gda.wsb.employee;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EmployeePrinter {
     static EmployeeRepository employeeRepository = new EmployeeRepository();
 
-    static void printEmployees() {
+    static void printEmployees(ArrayList<Employee> loggedEmployees) {
         if (employeeRepository.getEmployees() == null) {
             System.out.println("Błąd pobierania pracowników");
         } else if (employeeRepository.getEmployees().size() == 0) {
@@ -14,8 +15,8 @@ public class EmployeePrinter {
         } else if (employeeRepository.getEmployees().size() > 0) {
             System.out.println("\nLista pracowników (" + employeeRepository.getEmployees().size() + "):");
             int i = 0;
-            for (String employee : employeeRepository.getEmployees()) {
-                System.out.println(employee);
+            for (Employee employee : employeeRepository.getEmployees()) {
+                System.out.println(employee.toString());
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
@@ -24,14 +25,14 @@ public class EmployeePrinter {
         }
     }
 
-    static void printLoggedEmployees() {
+    static void printLoggedEmployees(ArrayList<Employee> allEmployees) {
         if (employeeRepository.getEmployees(true).size() == 0) {
             System.out.println("Brak zalogowanych pracowników");
         } else if (employeeRepository.getEmployees(true).size() > 0) {
             System.out.println("\nZalogowani użytkownicy (" + employeeRepository.getEmployees(true).size() + "):");
             int i = 0;
-            for (String loggedEmployee : employeeRepository.getEmployees(true)) {
-                System.out.println(loggedEmployee);
+            for (Employee loggedEmployee : employeeRepository.getEmployees(true)) {
+                System.out.println(loggedEmployee.toString());
                 if (i++ == 5) {
                     System.out.println("...");
                     break;
