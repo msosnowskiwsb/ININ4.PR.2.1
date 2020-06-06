@@ -19,7 +19,6 @@ public class EmployeeRepository {
                 foundEmployee.setLogged(!foundEmployee.isLogged());
                 System.out.println("Zmieniono status dla pracownika " + foundEmployee.getName() + " na " + foundEmployee.isLogged() + ".\n\nPodaj imię i nazwisko (exit = koniec):");
             } catch (WrongEmployee wrongEmployee) {
-                wrongEmployee.printStackTrace();
             }
 
         }
